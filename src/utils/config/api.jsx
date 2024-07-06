@@ -10,4 +10,6 @@ export const API_ENDPOINT = {
   logout: AUTH_PREFIX + "/logout",
   getUserUpload: UPLOAD_PREFIX + "/users",
   getUserProfile: USER_PREFIX,
+  updateUserProfile: USER_PREFIX + "/profile",
+  updateUserAddress: USER_PREFIX + "/address",
 };

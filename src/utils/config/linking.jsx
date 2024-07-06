@@ -11,6 +11,7 @@ const config = {
       },
     },
     AccountEdit: "account/edit",
+    AccountEditAddress: "account/edit/address",
   },
 };
 

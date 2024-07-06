@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet } from "react-native";
 import React from "react";
 import { colors } from "@themes/colors";
 import useImagePicker from "@hooks/useImagePicker";
@@ -15,7 +15,7 @@ const LelanginProfilePicker = ({ inputData, control, validationError }) => {
             uri:
               typeof field.value === "string"
                 ? `${process.env.EXPO_PUBLIC_API_URL}${API_ENDPOINT.getUserUpload}/${field.value}`
-                : field.value,
+                : field.value.uri,
           }}
           style={styles.circle}
         />
@@ -35,5 +35,7 @@ const styles = StyleSheet.create({
   container: {
     alignSelf: "center",
     backgroundColor: colors.Grey,
+    marginTop: 18,
+    marginBottom: 38,
   },
 });

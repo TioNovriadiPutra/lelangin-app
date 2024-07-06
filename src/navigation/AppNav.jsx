@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import AuthRoute from "@routes/AuthRoute";
@@ -22,15 +22,24 @@ const AppNav = () => {
       <DropdownModal />
       <ConfirmationModal />
 
-      {isMobile ? (
+      {Platform.OS === "web" ? (
+        isMobile ? (
+          <NavigationContainer
+            linking={linking}
+            fallback={<Text>Loading...</Text>}
+          >
+            {isLoggedIn ? <AppRoute /> : <AuthRoute />}
+          </NavigationContainer>
+        ) : (
+          <ErrorPage />
+        )
+      ) : (
         <NavigationContainer
           linking={linking}
           fallback={<Text>Loading...</Text>}
         >
           {isLoggedIn ? <AppRoute /> : <AuthRoute />}
         </NavigationContainer>
-      ) : (
-        <ErrorPage />
       )}
 
       <CustomToast />

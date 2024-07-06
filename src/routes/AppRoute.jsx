@@ -2,6 +2,7 @@ import { colors } from "@themes/colors";
 import { Stack, Tab } from "@utils/constant/navigation";
 import Account from "@views/app/account/Account";
 import AccountEdit from "@views/app/account/AccountEdit";
+import AccountEditAddress from "@views/app/account/AccountEditAddress";
 import Auction from "@views/app/auction/Auction";
 import Community from "@views/app/community/Community";
 import Home from "@views/app/home/Home";
@@ -19,6 +20,11 @@ const AppRoute = () => {
       <Stack.Screen
         name="AccountEdit"
         component={AccountEdit}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="AccountEditAddress"
+        component={AccountEditAddress}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

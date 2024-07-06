@@ -7,15 +7,20 @@ import { userSelector } from "@models/userModel";
 import UserProfileSkeleton from "@components/skeleton/UserProfileSkeleton";
 import UserProfile from "@components/molecule/UserProfile";
 import AccountMenu from "@components/molecule/AccountMenu";
+import { useIsFocused } from "@react-navigation/native";
 
 const Account = () => {
   const user = useRecoilValue(userSelector);
 
+  const isFocused = useIsFocused();
+
   const { getUserProfileService } = useUserController();
 
   useEffect(() => {
-    getUserProfileService();
-  }, []);
+    if (isFocused) {
+      getUserProfileService();
+    }
+  }, [isFocused]);
 
   return (
     <MainContainer withPadding={false} containerStyles={styles.container}>

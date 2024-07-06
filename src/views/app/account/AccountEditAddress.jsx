@@ -1,20 +1,20 @@
 import React from "react";
 import MainContainer from "@containers/MainContainer";
 import AppForm from "@components/organism/AppForm";
-import { editAccountForm } from "@utils/constant/form";
+import { editAddressForm } from "@utils/constant/form";
 import useUserController from "@controllers/userController";
 
-const AccountEdit = () => {
-  const { updateUserProfileService } = useUserController();
+const AccountEditAddress = () => {
+  const { updateUserAddressService } = useUserController();
 
   return (
     <MainContainer>
       <AppForm
-        formData={editAccountForm}
-        onSubmit={(data) => updateUserProfileService(data)}
+        formData={editAddressForm}
+        onSubmit={(data) => updateUserAddressService(data)}
       />
     </MainContainer>
   );
 };
 
-export default AccountEdit;
+export default AccountEditAddress;

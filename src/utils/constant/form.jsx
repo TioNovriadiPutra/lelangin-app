@@ -115,3 +115,24 @@ export const editAccountForm = {
     fullName: "",
   },
 };
+
+export const editAddressForm = {
+  headerData: {
+    title: "Address",
+    buttonData: {
+      type: "text",
+      label: "Edit",
+    },
+    withBack: true,
+  },
+  inputs: [
+    {
+      type: "textarea",
+      name: "address",
+      placeholder: "Your Address",
+    },
+  ],
+  defaultValues: {
+    address: "",
+  },
+};

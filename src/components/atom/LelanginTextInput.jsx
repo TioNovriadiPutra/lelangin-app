@@ -21,6 +21,7 @@ const LelanginTextInput = ({ inputData, control, validationError }) => {
         inputData.type === "password"
           ? styles.containerPassword
           : styles.containerNormal,
+        inputData.type === "textarea" && styles.containerTextArea,
         { borderColor: validationError ? colors.Danger : colors.Border },
       ]}
     >
@@ -35,6 +36,7 @@ const LelanginTextInput = ({ inputData, control, validationError }) => {
         onChangeText={field.onChange}
         secureTextEntry={inputData.type === "password" ? !seePass : false}
         style={styles.input}
+        multiline={inputData.type === "textarea"}
       />
 
       {inputData.type === "password" && (
@@ -68,6 +70,11 @@ const styles = StyleSheet.create({
   containerPassword: {
     paddingTop: 9,
     paddingBottom: 8,
+  },
+  containerTextArea: {
+    height: 352,
+    flexDirection: "column",
+    alignItems: "stretch",
   },
   input: {
     fontFamily: fonts.Regular,
