@@ -136,3 +136,101 @@ export const editAddressForm = {
     address: "",
   },
 };
+
+export const addCommunityForm = {
+  headerData: {
+    title: "Create Community",
+    buttonData: {
+      type: "text",
+      label: "Create",
+    },
+    withBack: true,
+  },
+  inputs: [
+    {
+      type: "thumbnail",
+      name: "thumbnail",
+      placeholder: "Community Thumbnail",
+    },
+    {
+      type: "text",
+      name: "communityName",
+      placeholder: "Community Name",
+    },
+  ],
+  defaultValues: {
+    thumbnail: null,
+    communityName: "",
+  },
+};
+
+export const addAuctionForm = {
+  headerData: {
+    title: "Create Auction",
+    buttonData: {
+      type: "text",
+      label: "Post",
+    },
+    withBack: true,
+  },
+  inputs: [
+    {
+      type: "galleries",
+      name: "auctionImages",
+      placeholder: "Add Image",
+    },
+    {
+      type: "text",
+      name: "auctionName",
+      placeholder: "Auction Title",
+    },
+    {
+      type: "dropdown",
+      name: "categoryId",
+      placeholder: "Category",
+      items: [],
+    },
+    {
+      type: "dropdown",
+      name: "communityId",
+      placeholder: "Tag Community",
+      items: [],
+    },
+    {
+      type: "textarea",
+      name: "description",
+      placeholder: "Description",
+    },
+    {
+      type: "currency",
+      name: "startBid",
+      placeholder: "Start Bid",
+    },
+    {
+      type: "switch",
+      name: "buyNow",
+      placeholder: "Buy Now",
+    },
+    {
+      type: "currency",
+      name: "buyNowPrice",
+      placeholder: "Buy Now Price",
+    },
+    {
+      type: "datetime",
+      name: "timer",
+      placeholder: "Set Timer",
+    },
+  ],
+  defaultValues: {
+    auctionImages: [],
+    auctionName: "",
+    categoryId: null,
+    communityId: null,
+    description: "",
+    startBid: "",
+    buyNow: false,
+    buyNowPrice: "",
+    timer: undefined,
+  },
+};

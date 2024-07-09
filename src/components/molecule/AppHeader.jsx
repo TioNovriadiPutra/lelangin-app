@@ -5,6 +5,7 @@ import { colors } from "@themes/colors";
 import LelanginBackButton from "@components/atom/LelanginBackButton";
 import { useNavigation } from "@react-navigation/native";
 import LelanginTextButton from "@components/atom/LelanginTextButton";
+import LelanginSearchButton from "@components/atom/LelanginSearchButton";
 
 const AppHeader = ({ headerData, onSubmit }) => {
   const nav = useNavigation();
@@ -24,6 +25,10 @@ const AppHeader = ({ headerData, onSubmit }) => {
           <LelanginTextButton
             buttonLabel={headerData.buttonData.label}
             onPress={onSubmit}
+          />
+        ) : headerData.buttonData.type === "search" ? (
+          <LelanginSearchButton
+            destination={headerData.buttonData.destination}
           />
         ) : null
       ) : null}

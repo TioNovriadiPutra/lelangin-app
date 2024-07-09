@@ -23,3 +23,11 @@ export const accountMenuData = [
     icon: require("@assets/images/logout.png"),
   },
 ];
+
+export const communityHeader = {
+  title: "Community",
+  buttonData: {
+    type: "search",
+  },
+  withBack: false,
+};

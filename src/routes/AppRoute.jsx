@@ -1,10 +1,13 @@
+import TabAddButton from "@components/atom/TabAddButton";
 import { colors } from "@themes/colors";
 import { Stack, Tab } from "@utils/constant/navigation";
 import Account from "@views/app/account/Account";
 import AccountEdit from "@views/app/account/AccountEdit";
 import AccountEditAddress from "@views/app/account/AccountEditAddress";
 import Auction from "@views/app/auction/Auction";
+import AuctionAdd from "@views/app/auction/AuctionAdd";
 import Community from "@views/app/community/Community";
+import CommunityAdd from "@views/app/community/CommunityAdd";
 import Home from "@views/app/home/Home";
 import React from "react";
 import { Image, StyleSheet } from "react-native";
@@ -27,11 +30,21 @@ const AppRoute = () => {
         component={AccountEditAddress}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="CommunityAdd"
+        component={CommunityAdd}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="AuctionAdd"
+        component={AuctionAdd}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 };
 
-const MainRoute = () => {
+const MainRoute = ({ navigation }) => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -110,6 +123,14 @@ const MainRoute = () => {
         name="Community"
         component={Community}
         options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="Add"
+        component={Home}
+        options={{
+          headerShown: false,
+          tabBarButton: () => <TabAddButton nav={navigation} />,
+        }}
       />
       <Tab.Screen
         name="Auction"

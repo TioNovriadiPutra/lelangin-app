@@ -29,8 +29,13 @@ const useDropdown = (inputData, control) => {
         show: true,
         data: {
           current: field.value,
+          type: inputData.type,
           onPress: (params) => {
-            field.onChange(dayjs(params.date).format("DD-MM-YYYY"));
+            field.onChange(
+              dayjs(params.date).format(
+                inputData.type === "date" ? "DD-MM-YYYY" : "DD-MM-YYYY HH:mm"
+              )
+            );
           },
         },
       });

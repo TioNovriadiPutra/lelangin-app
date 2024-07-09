@@ -12,6 +12,7 @@ const DatePicker = ({ datePickerData, onClose }) => {
       <DateTimePicker
         date={datePickerData.current}
         mode="single"
+        timePicker={datePickerData.type === "datetime"}
         onChange={(params) => {
           datePickerData.onPress(params);
           onClose();

@@ -17,4 +17,6 @@ export const colors = {
   SubTitle: "#747474",
   Question: "#524F4F",
   Denied: "#818181",
+  Search: "#F4F4F4",
+  Community: "#8E8E8E",
 };
