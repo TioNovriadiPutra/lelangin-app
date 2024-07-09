@@ -1,26 +1,28 @@
 import { FlatList, StyleSheet, View } from "react-native";
 import React from "react";
-import CommunityListButton from "@components/atom/CommunityListButton";
+import AuctionItem from "@components/atom/AuctionItem";
 
-const CommunityList = ({ listData }) => {
+const AuctionList = ({ listData }) => {
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={listData}
         keyExtractor={(_, index) => index.toString()}
-        horizontal
-        showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.list}
-        renderItem={({ item }) => <CommunityListButton buttonData={item} />}
+        renderItem={({ item }) => <AuctionItem itemData={item} />}
       />
     </View>
   );
 };
 
-export default CommunityList;
+export default AuctionList;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   list: {
     gap: 14,
+    paddingBottom: 74,
   },
 });

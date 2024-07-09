@@ -1,13 +1,17 @@
 import useController from "@hooks/useController";
+import { categoriesSelector } from "@models/categoryModel";
 import { getCategories } from "@services/categoryService";
 import { getCommunities } from "@services/communityService";
 import { addAuctionForm } from "@utils/constant/form";
+import { useSetRecoilState } from "recoil";
 
 const useCategoryController = () => {
+  const setCategories = useSetRecoilState(categoriesSelector);
+
   const { authToken, onHandleMutate, onHandleError, onHandleSettled } =
     useController();
 
-  const getCategoriesService = async () => {
+  const getCategoriesDropdownService = async () => {
     onHandleMutate();
 
     await getCategories(authToken)
@@ -52,7 +56,30 @@ const useCategoryController = () => {
       });
   };
 
+  const getCategoriesService = async () => {
+    setCategories({ loading: true });
+
+    await getCategories(authToken)
+      .then((response) => {
+        setCategories({
+          data: response.data.map((item) => {
+            return {
+              id: item.id,
+              categoryName: item.category_name,
+            };
+          }),
+        });
+      })
+      .catch((error) => {
+        onHandleError(error);
+      })
+      .finally(() => {
+        setCategories({ loading: false });
+      });
+  };
+
   return {
+    getCategoriesDropdownService,
     getCategoriesService,
   };
 };

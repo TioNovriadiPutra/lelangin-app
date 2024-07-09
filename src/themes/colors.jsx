@@ -19,4 +19,8 @@ export const colors = {
   Denied: "#818181",
   Search: "#F4F4F4",
   Community: "#8E8E8E",
+  Title: "#353535",
+  Label: "#8A8A8A",
+  Default: "#F5F5F5",
+  Inactive: "#8B8B8B",
 };

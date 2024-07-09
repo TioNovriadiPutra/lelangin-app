@@ -1,26 +1,32 @@
 import { FlatList, StyleSheet, View } from "react-native";
 import React from "react";
-import CommunityListButton from "@components/atom/CommunityListButton";
+import CategoryItem from "@components/atom/CategoryItem";
 
-const CommunityList = ({ listData }) => {
+const CategoryList = ({ listData }) => {
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={listData}
         keyExtractor={(_, index) => index.toString()}
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.list}
-        renderItem={({ item }) => <CommunityListButton buttonData={item} />}
+        renderItem={({ item, index }) => (
+          <CategoryItem itemData={item} index={index} />
+        )}
       />
     </View>
   );
 };
 
-export default CommunityList;
+export default CategoryList;
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    gap: 12,
+  },
   list: {
-    gap: 14,
+    gap: 12,
   },
 });

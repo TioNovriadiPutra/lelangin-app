@@ -3,10 +3,18 @@ import React from "react";
 import { API_ENDPOINT } from "@utils/config/api";
 import { fonts } from "@themes/fonts";
 import { colors } from "@themes/colors";
+import { useSetRecoilState } from "recoil";
+import { communityIdState } from "@models/communityModel";
 
 const CommunityListButton = ({ buttonData }) => {
+  const setCommunityId = useSetRecoilState(communityIdState);
+
+  const onHandlePress = () => {
+    setCommunityId(buttonData.id);
+  };
+
   return (
-    <Pressable style={styles.container}>
+    <Pressable style={styles.container} onPress={onHandlePress}>
       <Image
         source={{
           uri: `${process.env.EXPO_PUBLIC_API_URL}${API_ENDPOINT.getCommunityUpload}/${buttonData.thumbnail}`,

@@ -1,9 +1,8 @@
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import React from "react";
 import { Skeleton } from "@rneui/themed";
-import { View } from "react-native";
 
-const CommunityListSkeleton = () => {
+const CategoryListSkeleton = () => {
   const data = Array.from({ length: 10 }, (v, i) => [i + 1, `value${i + 1}`]);
 
   return (
@@ -14,16 +13,21 @@ const CommunityListSkeleton = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.list}
-        renderItem={({ item }) => <Skeleton width={68} height={68} circle />}
+        renderItem={({ item }) => (
+          <Skeleton width={121} height={40} style={styles.bar} />
+        )}
       />
     </View>
   );
 };
 
-export default CommunityListSkeleton;
+export default CategoryListSkeleton;
 
 const styles = StyleSheet.create({
   list: {
-    gap: 14,
+    gap: 12,
+  },
+  bar: {
+    borderRadius: 14,
   },
 });

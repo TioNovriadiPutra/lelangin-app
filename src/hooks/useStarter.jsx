@@ -15,6 +15,7 @@ const useStarter = () => {
     "Poppins-Medium": require("@assets/fonts/Poppins-Medium.ttf"),
     "Poppins-Regular": require("@assets/fonts/Poppins-Regular.ttf"),
     "Poppins-Light": require("@assets/fonts/Poppins-Light.ttf"),
+    "Merriweather-Bold": require("@assets/fonts/Merriweather-Bold.ttf"),
   });
 
   const isMobile = useMediaQuery({

@@ -4,4 +4,5 @@ export const fonts = {
   Medium: "Poppins-Medium",
   Regular: "Poppins-Regular",
   Light: "Poppins-Light",
+  MerriBold: "Merriweather-Bold",
 };

@@ -31,3 +31,11 @@ export const communityHeader = {
   },
   withBack: false,
 };
+
+export const homeHeader = {
+  title: "Home",
+  buttonData: {
+    type: "search",
+  },
+  withBack: false,
+};

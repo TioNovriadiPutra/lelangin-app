@@ -10,6 +10,11 @@ export const communityIsLoadingState = atom({
   default: false,
 });
 
+export const communityIdState = atom({
+  key: "communityIdState",
+  default: null,
+});
+
 export const communitiesSelector = selector({
   key: "communitiesSelector",
   get: ({ get }) => {

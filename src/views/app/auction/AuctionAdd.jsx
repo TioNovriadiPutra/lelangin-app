@@ -5,10 +5,10 @@ import { addAuctionForm } from "@utils/constant/form";
 import useCategoryController from "@controllers/categoryController";
 
 const AuctionAdd = () => {
-  const { getCategoriesService } = useCategoryController();
+  const { getCategoriesDropdownService } = useCategoryController();
 
   useEffect(() => {
-    getCategoriesService();
+    getCategoriesDropdownService();
   }, []);
 
   return (
