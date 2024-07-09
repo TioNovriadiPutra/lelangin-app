@@ -40,3 +40,16 @@ export const getAuctionsByCategory = async (token, param) => {
     throw error.response.data;
   }
 };
+
+export const addAuction = async (token, data) => {
+  try {
+    const reqBody = new FormData();
+    reqBody.append("auctionName", data.auctionName);
+    reqBody.append("description", data.description);
+    reqBody.append("startBid", data.startBid);
+    reqBody.append("buyNow", data.buyNow);
+    if (data.categoryId) {
+      reqBody.append("categoryId", data.categoryId.value);
+    }
+  } catch (error) {}
+};
