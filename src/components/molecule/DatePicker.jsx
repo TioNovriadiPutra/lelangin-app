@@ -3,19 +3,27 @@ import React from "react";
 import DateTimePicker from "react-native-ui-datepicker";
 import { colors } from "@themes/colors";
 import { fonts } from "@themes/fonts";
+import LelanginTextButton from "@components/atom/LelanginTextButton";
 
-const DatePicker = ({ datePickerData, onClose }) => {
+const DatePicker = ({ datePickerData, current, setDate, onClose }) => {
   return (
     <View style={styles.container}>
+      <LelanginTextButton
+        buttonLabel="Choose"
+        onPress={() => {
+          datePickerData.onPress(current);
+          onClose();
+        }}
+      />
+
       <Text style={styles.title}>Choose Date</Text>
 
       <DateTimePicker
-        date={datePickerData.current}
+        date={current}
         mode="single"
         timePicker={datePickerData.type === "datetime"}
         onChange={(params) => {
-          datePickerData.onPress(params);
-          onClose();
+          setDate(params.date);
         }}
         buttonNextIcon={
           <Image source={require("@assets/images/rightArrow.png")} />
@@ -45,6 +53,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.Black,
     textAlign: "center",
+    alignSelf: "center",
   },
   headerText: {
     fontFamily: fonts.Medium,

@@ -7,7 +7,10 @@ import { currencyFormatter } from "@utils/helper/formatter";
 import useAuctionItem from "@hooks/useAuctionItem";
 
 const AuctionItem = ({ itemData }) => {
-  const { timer, hour } = useAuctionItem(itemData.timer);
+  const { timer, day, hour, onHandleDetail } = useAuctionItem(
+    itemData.timer,
+    itemData.id
+  );
 
   return (
     <View style={styles.container}>
@@ -19,11 +22,13 @@ const AuctionItem = ({ itemData }) => {
       />
 
       <View style={styles.desc}>
-        <Pressable style={styles.header}>
+        <Pressable style={styles.header} onPress={onHandleDetail}>
           <Text
             style={[
               styles.timer,
-              { color: hour === 0 ? colors.Danger : colors.Success },
+              {
+                color: hour === 0 && day === 0 ? colors.Danger : colors.Success,
+              },
             ]}
           >
             {timer}

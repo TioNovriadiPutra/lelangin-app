@@ -6,3 +6,9 @@ export const currencyFormatter = (value) => {
 
   return formatter.format(value);
 };
+
+export const urlEncodeFormatter = (value) => {
+  const encoded = encodeURIComponent(value);
+
+  return encoded;
+};

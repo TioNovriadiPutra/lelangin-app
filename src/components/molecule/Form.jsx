@@ -118,6 +118,6 @@ export default Form;
 const styles = StyleSheet.create({
   list: {
     gap: 14,
-    paddingBottom: 14,
+    paddingBottom: 74,
   },
 });

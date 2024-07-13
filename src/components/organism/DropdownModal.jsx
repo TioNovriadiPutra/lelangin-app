@@ -8,8 +8,14 @@ import DropdownList from "@components/molecule/DropdownList";
 import DatePicker from "@components/molecule/DatePicker";
 
 const DropdownModal = () => {
-  const { dropdown, datePicker, dropdownAnimatedStyle, onHandleClose } =
-    useDropdownModal();
+  const {
+    dropdown,
+    datePicker,
+    date,
+    setDate,
+    dropdownAnimatedStyle,
+    onHandleClose,
+  } = useDropdownModal();
 
   return (
     <ModalContainer visible={dropdown.show} containerStyles={styles.modal}>
@@ -23,6 +29,8 @@ const DropdownModal = () => {
         ) : datePicker.data ? (
           <DatePicker
             datePickerData={datePicker.data}
+            current={date}
+            setDate={setDate}
             onClose={onHandleClose}
           />
         ) : null}

@@ -21,4 +21,5 @@ export const API_ENDPOINT = {
   getCategories: CATEGORY_PREFIX,
   getAuctionsByCommunity: AUCTION_PREFIX + "/community",
   getAuctionsByCategory: AUCTION_PREFIX + "/category",
+  addAuction: AUCTION_PREFIX,
 };

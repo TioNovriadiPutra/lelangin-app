@@ -6,6 +6,7 @@ import AccountEdit from "@views/app/account/AccountEdit";
 import AccountEditAddress from "@views/app/account/AccountEditAddress";
 import Auction from "@views/app/auction/Auction";
 import AuctionAdd from "@views/app/auction/AuctionAdd";
+import AuctionDetail from "@views/app/auction/AuctionDetail";
 import Community from "@views/app/community/Community";
 import CommunityAdd from "@views/app/community/CommunityAdd";
 import Home from "@views/app/home/Home";
@@ -33,6 +34,11 @@ const AppRoute = () => {
       <Stack.Screen
         name="CommunityAdd"
         component={CommunityAdd}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="AuctionDetail"
+        component={AuctionDetail}
         options={{ headerShown: false }}
       />
       <Stack.Screen

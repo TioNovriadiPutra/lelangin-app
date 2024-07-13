@@ -23,4 +23,5 @@ export const colors = {
   Label: "#8A8A8A",
   Default: "#F5F5F5",
   Inactive: "#8B8B8B",
+  Dot: "#B6B6B6",
 };

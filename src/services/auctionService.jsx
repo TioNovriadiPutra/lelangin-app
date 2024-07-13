@@ -1,12 +1,15 @@
 import { API_ENDPOINT } from "@utils/config/api";
 import { axiosInstance } from "@utils/config/axios";
+import { urlEncodeFormatter } from "@utils/helper/formatter";
+import { generateBlob } from "@utils/helper/generateBlob";
+import dayjs from "dayjs";
 
 export const getAuctionsByCommunity = async (token, param) => {
   try {
     let url = API_ENDPOINT.getAuctionsByCommunity;
 
     if (param) {
-      url += `/${param}`;
+      url += `?community=${urlEncodeFormatter(param)}`;
     }
 
     const response = await axiosInstance.get(url, {
@@ -26,7 +29,7 @@ export const getAuctionsByCategory = async (token, param) => {
     let url = API_ENDPOINT.getAuctionsByCategory;
 
     if (param) {
-      url += `/${param}`;
+      url += `?category=${param}`;
     }
 
     const response = await axiosInstance.get(url, {
@@ -34,6 +37,23 @@ export const getAuctionsByCategory = async (token, param) => {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const getAuctionDetail = async (token, id) => {
+  try {
+    const response = await axiosInstance.get(
+      `${API_ENDPOINT.addAuction}/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     return response.data;
   } catch (error) {
@@ -51,5 +71,41 @@ export const addAuction = async (token, data) => {
     if (data.categoryId) {
       reqBody.append("categoryId", data.categoryId.value);
     }
-  } catch (error) {}
+    if (data.communityId) {
+      reqBody.append("communityId", data.communityId.value);
+    }
+    if (data.buyNow === true) {
+      reqBody.append("buyNowPrice", data.buyNowPrice);
+    }
+    if (data.timer) {
+      reqBody.append(
+        "timer",
+        dayjs(data.timer.value).format(data.timer.format)
+      );
+    }
+
+    if (data.auctionImages.length > 0) {
+      for (const [index, image] of data.auctionImages.entries()) {
+        const blob = await generateBlob(image.uri);
+
+        reqBody.append(`auctionImages[${index}]`, blob);
+      }
+    }
+
+    const response = await axiosInstance.post(
+      API_ENDPOINT.addAuction,
+      reqBody,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error.response.data;
+  }
 };

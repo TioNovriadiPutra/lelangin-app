@@ -1,5 +1,6 @@
 import { datePickerSelector, dropdownSelector } from "@store/pageState";
-import { useEffect } from "react";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
 import {
   interpolate,
   useAnimatedStyle,
@@ -11,6 +12,8 @@ import { useRecoilState } from "recoil";
 const useDropdownModal = () => {
   const [dropdown, setDropdown] = useRecoilState(dropdownSelector);
   const [datePicker, setDatePicker] = useRecoilState(datePickerSelector);
+
+  const [date, setDate] = useState(undefined);
 
   const dropdownAnim = useSharedValue(0);
 
@@ -24,12 +27,18 @@ const useDropdownModal = () => {
 
   const entry = () => {
     dropdownAnim.value = withTiming(1, { duration: 500 });
+    if (datePicker.data) {
+      if (datePicker.data.current) {
+        setDate(dayjs(datePicker.data.current.value));
+      }
+    }
   };
 
   const onHandleClose = () => {
     dropdownAnim.value = withTiming(0, { duration: 500 });
 
     setTimeout(() => {
+      setDate(undefined);
       if (dropdown.data) {
         setDropdown({
           show: false,
@@ -53,6 +62,8 @@ const useDropdownModal = () => {
   return {
     dropdown,
     datePicker,
+    date,
+    setDate,
     dropdownAnimatedStyle,
     onHandleClose,
   };

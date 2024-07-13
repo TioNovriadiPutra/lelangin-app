@@ -1,5 +1,4 @@
 import { datePickerSelector, dropdownSelector } from "@store/pageState";
-import dayjs from "dayjs";
 import { useController } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 
@@ -31,11 +30,11 @@ const useDropdown = (inputData, control) => {
           current: field.value,
           type: inputData.type,
           onPress: (params) => {
-            field.onChange(
-              dayjs(params.date).format(
-                inputData.type === "date" ? "DD-MM-YYYY" : "DD-MM-YYYY HH:mm"
-              )
-            );
+            field.onChange({
+              value: params,
+              format:
+                inputData.type === "date" ? "DD-MM-YYYY" : "DD-MM-YYYY, HH:mm",
+            });
           },
         },
       });

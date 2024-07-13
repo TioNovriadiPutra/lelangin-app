@@ -13,7 +13,7 @@ const CategoryItem = ({ itemData, index }) => {
   };
 
   const onHandlePress = () => {
-    setCategoryId(itemData.id);
+    setCategoryId(itemData.categoryName);
   };
 
   return (
@@ -45,7 +45,9 @@ const CategoryItem = ({ itemData, index }) => {
           styles.button,
           {
             backgroundColor:
-              categoryId === itemData.id ? colors.Accent : colors.Default,
+              categoryId === itemData.categoryName
+                ? colors.Accent
+                : colors.Default,
           },
         ]}
         onPress={onHandlePress}
@@ -55,7 +57,9 @@ const CategoryItem = ({ itemData, index }) => {
             styles.label,
             {
               color:
-                categoryId === itemData.id ? colors.White : colors.Inactive,
+                categoryId === itemData.categoryName
+                  ? colors.White
+                  : colors.Inactive,
             },
           ]}
         >

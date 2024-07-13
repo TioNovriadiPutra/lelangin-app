@@ -3,6 +3,7 @@ import React from "react";
 import { fonts } from "@themes/fonts";
 import { colors } from "@themes/colors";
 import useDropdown from "@hooks/useDropdown";
+import dayjs from "dayjs";
 
 const LelanginDropdown = ({ inputData, control, validationError }) => {
   const { field, onHandlePress } = useDropdown(inputData, control);
@@ -15,6 +16,10 @@ const LelanginDropdown = ({ inputData, control, validationError }) => {
       ]}
       onPress={onHandlePress}
     >
+      {validationError && (
+        <Text style={styles.error}>{validationError.message}</Text>
+      )}
+
       <Text
         style={[
           styles.input,
@@ -24,7 +29,7 @@ const LelanginDropdown = ({ inputData, control, validationError }) => {
         {field.value
           ? inputData.type === "dropdown"
             ? field.value.label
-            : field.value
+            : dayjs(field.value.value).format(field.value.format)
           : inputData.placeholder}
       </Text>
     </Pressable>
@@ -46,5 +51,13 @@ const styles = StyleSheet.create({
     fontFamily: fonts.Regular,
     fontSize: 14,
     flex: 1,
+  },
+  error: {
+    position: "absolute",
+    bottom: -10,
+    fontFamily: fonts.Regular,
+    fontSize: 14,
+    color: colors.Danger,
+    backgroundColor: colors.White,
   },
 });

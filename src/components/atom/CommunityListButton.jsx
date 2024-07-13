@@ -10,7 +10,7 @@ const CommunityListButton = ({ buttonData }) => {
   const setCommunityId = useSetRecoilState(communityIdState);
 
   const onHandlePress = () => {
-    setCommunityId(buttonData.id);
+    setCommunityId(buttonData.communityName);
   };
 
   return (

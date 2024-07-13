@@ -3,9 +3,11 @@ import MainContainer from "@containers/MainContainer";
 import AppForm from "@components/organism/AppForm";
 import { addAuctionForm } from "@utils/constant/form";
 import useCategoryController from "@controllers/categoryController";
+import useAuctionController from "@controllers/auctionController";
 
 const AuctionAdd = () => {
   const { getCategoriesDropdownService } = useCategoryController();
+  const { addAuctionService } = useAuctionController();
 
   useEffect(() => {
     getCategoriesDropdownService();
@@ -13,7 +15,10 @@ const AuctionAdd = () => {
 
   return (
     <MainContainer>
-      <AppForm formData={addAuctionForm} />
+      <AppForm
+        formData={addAuctionForm}
+        onSubmit={(data) => addAuctionService(data)}
+      />
     </MainContainer>
   );
 };
