@@ -11,6 +11,8 @@ import LoadingModal from "@components/organism/LoadingModal";
 import AppRoute from "@routes/AppRoute";
 import ConfirmationModal from "@components/organism/ConfirmationModal";
 import BidModal from "@components/organism/BidModal";
+import { StatusBar } from "expo-status-bar";
+import { colors } from "@themes/colors";
 
 const AppNav = () => {
   const { isLoggedIn, fontsLoaded, isMobile } = useStarter();
@@ -19,6 +21,8 @@ const AppNav = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar translucent={false} backgroundColor={colors.White} />
+
       <LoadingModal />
       <DropdownModal />
       <ConfirmationModal />

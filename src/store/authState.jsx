@@ -5,6 +5,11 @@ export const authTokenState = atom({
   default: null,
 });
 
+export const userIdState = atom({
+  key: "userIdState",
+  default: null,
+});
+
 export const isLoggedInSelector = selector({
   key: "isLoggedInSelector",
   get: ({ get }) => {

@@ -6,7 +6,7 @@ import DetailContent from "@components/organism/DetailContent";
 import useAuctionDetail from "@hooks/useAuctionDetail";
 
 const AuctionDetail = ({ route }) => {
-  const { auctionDetail, onHandleBid } = useAuctionDetail(route.params);
+  const { auctionDetail, mine, onHandleBid } = useAuctionDetail(route.params);
 
   return (
     <MainContainer withPadding={false}>
@@ -16,10 +16,13 @@ const AuctionDetail = ({ route }) => {
         <>
           <DetailContent contentData={auctionDetail.data} />
 
-          <DetailFooter
-            buyNow={auctionDetail.data.content.buyNowPrice}
-            onBid={onHandleBid}
-          />
+          {auctionDetail.data.active && (
+            <DetailFooter
+              buyNow={auctionDetail.data.content.buyNowPrice}
+              onBid={onHandleBid}
+              mine={mine}
+            />
+          )}
         </>
       )}
     </MainContainer>

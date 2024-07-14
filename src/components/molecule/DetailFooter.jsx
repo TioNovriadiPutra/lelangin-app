@@ -3,22 +3,22 @@ import React from "react";
 import { colors } from "@themes/colors";
 import LelanginButton from "@components/atom/LelanginButton";
 
-const DetailFooter = ({ buyNow, onBid }) => {
+const DetailFooter = ({ buyNow, onBid, mine }) => {
   return (
     <View style={styles.container}>
-      {buyNow && (
+      {buyNow || mine ? (
         <LelanginButton
           buttonData={{
-            label: "Buy Now",
+            label: buyNow ? "Buy Now" : "Delete",
             color: colors.Accent,
           }}
           buttonStyles={styles.buy}
         />
-      )}
+      ) : null}
 
       <LelanginButton
         buttonData={{
-          label: "Place Bid Now",
+          label: mine ? "Approve" : "Place Bid Now",
           color: colors.Main,
         }}
         buttonStyles={styles.bid}
@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
     gap: 14,
   },
   buy: {
-    paddingHorizontal: 33.5,
+    flex: 1,
   },
   bid: {
-    flex: 1,
+    flex: 2,
   },
 });

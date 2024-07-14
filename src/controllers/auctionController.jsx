@@ -5,19 +5,22 @@ import { communityIdState } from "@models/communityModel";
 import { useNavigation } from "@react-navigation/native";
 import {
   addAuction,
+  approveAuction,
   bidAuction,
   getAuctionDetail,
   getAuctionsByCategory,
   getAuctionsByCommunity,
 } from "@services/auctionService";
-import { bidSelector } from "@store/pageState";
+import { bidSelector, confirmationSelector } from "@store/pageState";
 import { currencyFormatter } from "@utils/helper/formatter";
+import dayjs from "dayjs";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 const useAuctionController = () => {
   const setAuctions = useSetRecoilState(auctionsSelector);
   const setAuctionDetail = useSetRecoilState(auctionDetailSelector);
   const setBid = useSetRecoilState(bidSelector);
+  const setConfirmation = useSetRecoilState(confirmationSelector);
   const communityId = useRecoilValue(communityIdState);
   const categoryId = useRecoilValue(categoryIdState);
 
@@ -88,6 +91,8 @@ const useAuctionController = () => {
       .then((response) => {
         setAuctionDetail({
           data: {
+            active: dayjs(response.data.timer).diff(dayjs()) < 0 ? false : true,
+            profileId: response.data.profile_id,
             header: {
               galleries: response.data.galleries,
               timer: response.data.timer,
@@ -148,12 +153,32 @@ const useAuctionController = () => {
       });
   };
 
+  const approveAuctionService = async (id) => {
+    setConfirmation({ show: false, data: null });
+    onHandleMutate();
+
+    await approveAuction(authToken, id)
+      .then((response) => {
+        nav.navigate("MainRoute", {
+          screen: "Auction",
+        });
+        onHandleSuccess(response.message);
+      })
+      .catch((error) => {
+        onHandleError(error);
+      })
+      .finally(() => {
+        onHandleSettled();
+      });
+  };
+
   return {
     getAuctionsByCommunityService,
     getAuctionsByCategoryService,
     getAuctionDetailService,
     addAuctionService,
     bidAuctionService,
+    approveAuctionService,
   };
 };
 

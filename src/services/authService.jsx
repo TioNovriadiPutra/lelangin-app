@@ -1,5 +1,6 @@
 import { API_ENDPOINT } from "@utils/config/api";
 import { axiosInstance } from "@utils/config/axios";
+import dayjs from "dayjs";
 
 export const login = async (data) => {
   try {
@@ -16,6 +17,7 @@ export const register = async (data) => {
     const reqBody = {
       ...data,
       gender: data.gender ? data.gender.value : null,
+      dob: data.dob ? dayjs(data.dob.value).format(data.dob.format) : null,
     };
 
     const response = await axiosInstance.post(API_ENDPOINT.register, reqBody);

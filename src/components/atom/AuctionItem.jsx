@@ -7,7 +7,7 @@ import { currencyFormatter } from "@utils/helper/formatter";
 import useAuctionItem from "@hooks/useAuctionItem";
 
 const AuctionItem = ({ itemData }) => {
-  const { timer, day, hour, onHandleDetail } = useAuctionItem(
+  const { timer, day, hour, onHandleDetail, done } = useAuctionItem(
     itemData.timer,
     itemData.id
   );
@@ -27,11 +27,14 @@ const AuctionItem = ({ itemData }) => {
             style={[
               styles.timer,
               {
-                color: hour === 0 && day === 0 ? colors.Danger : colors.Success,
+                color:
+                  (hour === 0 && day === 0) || done
+                    ? colors.Danger
+                    : colors.Success,
               },
             ]}
           >
-            {timer}
+            {done ? "Ended" : timer}
           </Text>
 
           <Text style={styles.name}>{itemData.auctionName}</Text>

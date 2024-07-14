@@ -9,11 +9,14 @@ export const auctionsState = atom({
 export const auctionDetailState = atom({
   key: "auctionDetailState",
   default: {
+    active: false,
+    profileId: null,
     header: {
       galleries: [],
       timer: "",
     },
     content: {
+      id: null,
       auctionName: "",
       categoryName: "",
       highestBid: currencyFormatter(0),

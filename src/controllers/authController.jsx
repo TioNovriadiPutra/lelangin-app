@@ -7,6 +7,7 @@ const useAuthController = () => {
   const {
     authToken,
     setAuthToken,
+    setUserId,
     onHandleMutate,
     onHandleSuccess,
     onHandleError,
@@ -21,7 +22,9 @@ const useAuthController = () => {
     await login(data)
       .then((response) => {
         setAuthToken(response.token.token);
+        setUserId(response.userId);
         AsyncStorage.setItem("@authToken", response.token.token);
+        AsyncStorage.setItem("@userId", JSON.stringify(response.userId));
         onHandleSuccess(response.message);
       })
       .catch((error) => {

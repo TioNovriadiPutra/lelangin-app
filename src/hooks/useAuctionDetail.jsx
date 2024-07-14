@@ -1,9 +1,11 @@
 import useAuctionController from "@controllers/auctionController";
 import { auctionDetailSelector } from "@models/auctionModel";
 import { useIsFocused } from "@react-navigation/native";
-import { bidSelector } from "@store/pageState";
+import { userIdState } from "@store/authState";
+import { bidSelector, confirmationSelector } from "@store/pageState";
+import { colors } from "@themes/colors";
 import { useEffect } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 const useAuctionDetail = (params) => {
   const { id } = params;
@@ -11,22 +13,42 @@ const useAuctionDetail = (params) => {
   const [auctionDetail, setAuctionDetail] = useRecoilState(
     auctionDetailSelector
   );
+  const userId = useRecoilValue(userIdState);
   const setBid = useSetRecoilState(bidSelector);
+  const setConfirmation = useSetRecoilState(confirmationSelector);
 
   const isFocused = useIsFocused();
 
-  const { getAuctionDetailService, bidAuctionService } = useAuctionController();
+  const { getAuctionDetailService, bidAuctionService, approveAuctionService } =
+    useAuctionController();
 
   const onHandleBid = () => {
-    setBid({
-      show: true,
-      data: {
-        highestBid: auctionDetail.data.content.highestBid,
-        onBid: (data) => {
-          bidAuctionService(data, id);
+    if (userId === auctionDetail.data.profileId) {
+      setConfirmation({
+        show: true,
+        data: {
+          title: "Approve Auction",
+          desc: "Process this auction?",
+          buttonData: {
+            label: "Confirm",
+            color: colors.Main,
+          },
+          onPress: () => {
+            approveAuctionService(auctionDetail.data.content.id);
+          },
         },
-      },
-    });
+      });
+    } else {
+      setBid({
+        show: true,
+        data: {
+          highestBid: auctionDetail.data.content.highestBid,
+          onBid: (data) => {
+            bidAuctionService(data, id);
+          },
+        },
+      });
+    }
   };
 
   useEffect(() => {
@@ -41,6 +63,7 @@ const useAuctionDetail = (params) => {
 
   return {
     auctionDetail,
+    mine: auctionDetail.data ? auctionDetail.data.profileId === userId : false,
     onHandleBid,
   };
 };

@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { authTokenState } from "@store/authState";
+import { authTokenState, userIdState } from "@store/authState";
 import { isLoadingState, validationErrorState } from "@store/pageState";
 import { toastSelector } from "@store/toastState";
 import { useRecoilState, useSetRecoilState } from "recoil";
@@ -8,6 +8,7 @@ const useController = () => {
   const setIsLoading = useSetRecoilState(isLoadingState);
   const setValidationError = useSetRecoilState(validationErrorState);
   const setToast = useSetRecoilState(toastSelector);
+  const setUserId = useSetRecoilState(userIdState);
 
   const [authToken, setAuthToken] = useRecoilState(authTokenState);
 
@@ -23,7 +24,9 @@ const useController = () => {
   const onHandleError = async (error) => {
     if (error.errors) {
       setAuthToken(null);
+      setUserId(null);
       await AsyncStorage.removeItem("@authToken");
+      await AsyncStorage.removeItem("@userId");
     } else if (error.error.status === 422) {
       setValidationError(error.error.message);
     } else {
@@ -38,6 +41,7 @@ const useController = () => {
   return {
     authToken,
     setAuthToken,
+    setUserId,
     onHandleMutate,
     onHandleSuccess,
     onHandleError,

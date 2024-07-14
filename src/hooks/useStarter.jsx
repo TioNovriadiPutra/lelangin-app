@@ -1,5 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { authTokenState, isLoggedInSelector } from "@store/authState";
+import {
+  authTokenState,
+  isLoggedInSelector,
+  userIdState,
+} from "@store/authState";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -8,6 +12,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 const useStarter = () => {
   const isLoggedIn = useRecoilValue(isLoggedInSelector);
   const setAuthToken = useSetRecoilState(authTokenState);
+  const setUserId = useSetRecoilState(userIdState);
 
   const [fontsLoaded] = useFonts({
     "Poppins-Bold": require("@assets/fonts/Poppins-Bold.ttf"),
@@ -24,9 +29,11 @@ const useStarter = () => {
 
   const checkIsLoggedIn = async () => {
     const token = await AsyncStorage.getItem("@authToken");
+    const userId = await AsyncStorage.getItem("@userId");
 
     if (token) {
       setAuthToken(token);
+      setUserId(JSON.parse(userId));
     }
   };
 

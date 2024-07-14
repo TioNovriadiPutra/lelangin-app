@@ -16,7 +16,7 @@ const Timer = ({ timerData }) => {
     >
       <Text style={styles.label}>Current End</Text>
 
-      <Text style={styles.time}>{timer}</Text>
+      <Text style={styles.time}>{done ? "Ended" : timer}</Text>
     </View>
   );
 };
