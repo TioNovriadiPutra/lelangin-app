@@ -35,6 +35,16 @@ export const datePickerDataState = atom({
   default: null,
 });
 
+export const showBidState = atom({
+  key: "showBidState",
+  default: false,
+});
+
+export const bidDataState = atom({
+  key: "bidDataState",
+  default: null,
+});
+
 export const confirmationSelector = selector({
   key: "confirmationSelector",
   get: ({ get }) => {
@@ -83,5 +93,22 @@ export const datePickerSelector = selector({
   set: ({ set }, newValue) => {
     set(showDropdownState, newValue.show);
     set(datePickerDataState, newValue.data);
+  },
+});
+
+export const bidSelector = selector({
+  key: "bidSelector",
+  get: ({ get }) => {
+    const show = get(showBidState);
+    const data = get(bidDataState);
+
+    return {
+      show,
+      data,
+    };
+  },
+  set: ({ set }, newValue) => {
+    set(showBidState, newValue.show);
+    set(bidDataState, newValue.data);
   },
 });

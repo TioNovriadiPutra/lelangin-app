@@ -1,11 +1,15 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
 import ModalContainer from "@containers/ModalContainer";
+import BidBox from "@components/molecule/BidBox";
+import useBidModal from "@hooks/useBidModal";
 
-const BidModal = ({ visible }) => {
+const BidModal = () => {
+  const { bid, onHandleClose } = useBidModal();
+
   return (
-    <ModalContainer visible={visible} containerStyles={styles.modal}>
-      <Text>BidModal</Text>
+    <ModalContainer visible={bid.show} containerStyles={styles.modal}>
+      {bid.data && <BidBox bidData={bid.data} onClose={onHandleClose} />}
     </ModalContainer>
   );
 };

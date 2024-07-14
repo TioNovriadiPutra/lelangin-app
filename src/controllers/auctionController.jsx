@@ -5,16 +5,19 @@ import { communityIdState } from "@models/communityModel";
 import { useNavigation } from "@react-navigation/native";
 import {
   addAuction,
+  bidAuction,
   getAuctionDetail,
   getAuctionsByCategory,
   getAuctionsByCommunity,
 } from "@services/auctionService";
+import { bidSelector } from "@store/pageState";
 import { currencyFormatter } from "@utils/helper/formatter";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 const useAuctionController = () => {
   const setAuctions = useSetRecoilState(auctionsSelector);
   const setAuctionDetail = useSetRecoilState(auctionDetailSelector);
+  const setBid = useSetRecoilState(bidSelector);
   const communityId = useRecoilValue(communityIdState);
   const categoryId = useRecoilValue(categoryIdState);
 
@@ -126,11 +129,31 @@ const useAuctionController = () => {
       });
   };
 
+  const bidAuctionService = async (data, id) => {
+    setBid({ show: false, data: null });
+    onHandleMutate();
+
+    await bidAuction(authToken, data, id)
+      .then((response) => {
+        onHandleSuccess(response.message);
+        nav.navigate("MainRoute", {
+          screen: "Auction",
+        });
+      })
+      .catch((error) => {
+        onHandleError(error);
+      })
+      .finally(() => {
+        onHandleSettled();
+      });
+  };
+
   return {
     getAuctionsByCommunityService,
     getAuctionsByCategoryService,
     getAuctionDetailService,
     addAuctionService,
+    bidAuctionService,
   };
 };
 

@@ -109,3 +109,21 @@ export const addAuction = async (token, data) => {
     throw error.response.data;
   }
 };
+
+export const bidAuction = async (token, data, id) => {
+  try {
+    const response = await axiosInstance.post(
+      `${API_ENDPOINT.bidAuction}/${id}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};

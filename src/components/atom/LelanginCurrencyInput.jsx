@@ -5,7 +5,12 @@ import { useController } from "react-hook-form";
 import CurrencyInput from "react-native-currency-input";
 import { fonts } from "@themes/fonts";
 
-const LelanginCurrencyInput = ({ inputData, control, validationError }) => {
+const LelanginCurrencyInput = ({
+  inputData,
+  control,
+  validationError,
+  center,
+}) => {
   const { field } = useController({
     name: inputData.name,
     control,
@@ -32,7 +37,7 @@ const LelanginCurrencyInput = ({ inputData, control, validationError }) => {
         separator=","
         precision={0}
         minValue={0}
-        style={styles.input}
+        style={[styles.input, { textAlign: center ? "center" : "auto" }]}
       />
     </View>
   );

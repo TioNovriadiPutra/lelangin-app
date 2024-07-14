@@ -1,24 +1,32 @@
 import useAuctionController from "@controllers/auctionController";
 import { auctionDetailSelector } from "@models/auctionModel";
 import { useIsFocused } from "@react-navigation/native";
-import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { bidSelector } from "@store/pageState";
+import { useEffect } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 const useAuctionDetail = (params) => {
   const { id } = params;
 
-  const [showModal, setShowModal] = useState(false);
-
   const [auctionDetail, setAuctionDetail] = useRecoilState(
     auctionDetailSelector
   );
+  const setBid = useSetRecoilState(bidSelector);
 
   const isFocused = useIsFocused();
 
-  const { getAuctionDetailService } = useAuctionController();
+  const { getAuctionDetailService, bidAuctionService } = useAuctionController();
 
   const onHandleBid = () => {
-    setShowModal(true);
+    setBid({
+      show: true,
+      data: {
+        highestBid: auctionDetail.data.content.highestBid,
+        onBid: (data) => {
+          bidAuctionService(data, id);
+        },
+      },
+    });
   };
 
   useEffect(() => {
@@ -32,7 +40,6 @@ const useAuctionDetail = (params) => {
   }, [isFocused]);
 
   return {
-    showModal,
     auctionDetail,
     onHandleBid,
   };

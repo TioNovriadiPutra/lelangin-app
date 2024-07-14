@@ -22,4 +22,5 @@ export const API_ENDPOINT = {
   getAuctionsByCommunity: AUCTION_PREFIX + "/community",
   getAuctionsByCategory: AUCTION_PREFIX + "/category",
   addAuction: AUCTION_PREFIX,
+  bidAuction: AUCTION_PREFIX + "/bid",
 };

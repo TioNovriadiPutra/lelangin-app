@@ -1,9 +1,9 @@
 import { Image, Pressable, StyleSheet } from "react-native";
 import React from "react";
 
-const LelanginBackButton = ({ onPress }) => {
+const LelanginBackButton = ({ onPress, containerStyles }) => {
   return (
-    <Pressable style={styles.container} onPress={onPress}>
+    <Pressable style={[styles.container, containerStyles]} onPress={onPress}>
       <Image source={require("@assets/images/back.png")} style={styles.icon} />
     </Pressable>
   );

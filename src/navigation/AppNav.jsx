@@ -10,6 +10,7 @@ import DropdownModal from "@components/organism/DropdownModal";
 import LoadingModal from "@components/organism/LoadingModal";
 import AppRoute from "@routes/AppRoute";
 import ConfirmationModal from "@components/organism/ConfirmationModal";
+import BidModal from "@components/organism/BidModal";
 
 const AppNav = () => {
   const { isLoggedIn, fontsLoaded, isMobile } = useStarter();
@@ -21,6 +22,7 @@ const AppNav = () => {
       <LoadingModal />
       <DropdownModal />
       <ConfirmationModal />
+      <BidModal />
 
       {Platform.OS === "web" ? (
         isMobile ? (
