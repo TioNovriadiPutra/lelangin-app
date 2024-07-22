@@ -40,10 +40,7 @@ const AppNav = () => {
           <ErrorPage />
         )
       ) : (
-        <NavigationContainer
-          linking={linking}
-          fallback={<Text>Loading...</Text>}
-        >
+        <NavigationContainer>
           {isLoggedIn ? <AppRoute /> : <AuthRoute />}
         </NavigationContainer>
       )}

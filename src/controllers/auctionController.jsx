@@ -1,5 +1,9 @@
 import useController from "@hooks/useController";
-import { auctionDetailSelector, auctionsSelector } from "@models/auctionModel";
+import {
+  auctionDetailSelector,
+  auctionsSelector,
+  userAuctionsSelector,
+} from "@models/auctionModel";
 import { categoryIdState } from "@models/categoryModel";
 import { communityIdState } from "@models/communityModel";
 import { useNavigation } from "@react-navigation/native";
@@ -10,6 +14,8 @@ import {
   getAuctionDetail,
   getAuctionsByCategory,
   getAuctionsByCommunity,
+  getUserAuctions,
+  getUserBids,
 } from "@services/auctionService";
 import { bidSelector, confirmationSelector } from "@store/pageState";
 import { currencyFormatter } from "@utils/helper/formatter";
@@ -19,6 +25,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 const useAuctionController = () => {
   const setAuctions = useSetRecoilState(auctionsSelector);
   const setAuctionDetail = useSetRecoilState(auctionDetailSelector);
+  const setUserAuctions = useSetRecoilState(userAuctionsSelector);
   const setBid = useSetRecoilState(bidSelector);
   const setConfirmation = useSetRecoilState(confirmationSelector);
   const communityId = useRecoilValue(communityIdState);
@@ -33,6 +40,53 @@ const useAuctionController = () => {
     onHandleError,
     onHandleSettled,
   } = useController();
+
+  const getUserAuctionsService = async () => {
+    setUserAuctions({ loading: true });
+
+    const finalData = [];
+
+    await getUserAuctions(authToken)
+      .then((response) => {
+        const map = response.data.map((item) => {
+          return {
+            id: item.id,
+            auctionName: item.auction_name,
+            thumbnail: item.galleries[0],
+            highestBid: item.highest_bid,
+            timer: item.timer,
+          };
+        });
+
+        finalData.push(map);
+      })
+      .catch((error) => {
+        onHandleError(error);
+      });
+
+    await getUserBids(authToken)
+      .then((response) => {
+        const map = response.data.map((item) => {
+          return {
+            id: item.id,
+            auctionName: item.auction_name,
+            thumbnail: item.galleries[0],
+            highestBid: item.highest_bid,
+            timer: item.timer,
+          };
+        });
+
+        finalData.push(map);
+      })
+      .catch((error) => {
+        onHandleError(error);
+      })
+      .finally(() => {
+        setUserAuctions({ loading: false });
+      });
+
+    setUserAuctions({ data: finalData });
+  };
 
   const getAuctionsByCommunityService = async () => {
     setAuctions({ loading: true });
@@ -173,6 +227,7 @@ const useAuctionController = () => {
   };
 
   return {
+    getUserAuctionsService,
     getAuctionsByCommunityService,
     getAuctionsByCategoryService,
     getAuctionDetailService,

@@ -39,3 +39,5 @@ export const homeHeader = {
   },
   withBack: false,
 };
+
+export const auctionHeader = ["Biddings", "My Auction"];

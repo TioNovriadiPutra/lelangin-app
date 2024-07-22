@@ -45,6 +45,11 @@ export const bidDataState = atom({
   default: null,
 });
 
+export const auctionSwitchIndexState = atom({
+  key: "auctionSwitchIndexState",
+  default: 0,
+});
+
 export const confirmationSelector = selector({
   key: "confirmationSelector",
   get: ({ get }) => {

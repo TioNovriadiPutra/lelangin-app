@@ -4,6 +4,34 @@ import { urlEncodeFormatter } from "@utils/helper/formatter";
 import { generateBlob } from "@utils/helper/generateBlob";
 import dayjs from "dayjs";
 
+export const getUserAuctions = async (token) => {
+  try {
+    const response = await axiosInstance.get(API_ENDPOINT.addAuction, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const getUserBids = async (token) => {
+  try {
+    const response = await axiosInstance.get(API_ENDPOINT.bidAuction, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
 export const getAuctionsByCommunity = async (token, param) => {
   try {
     let url = API_ENDPOINT.getAuctionsByCommunity;

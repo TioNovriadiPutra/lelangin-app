@@ -6,6 +6,11 @@ export const auctionsState = atom({
   default: [],
 });
 
+export const userAuctionsState = atom({
+  key: "userAuctionsState",
+  default: [],
+});
+
 export const auctionDetailState = atom({
   key: "auctionDetailState",
   default: {
@@ -67,6 +72,28 @@ export const auctionDetailSelector = selector({
   set: ({ set }, newValue) => {
     if (newValue && newValue.data !== undefined) {
       set(auctionDetailState, newValue.data);
+    }
+
+    if (newValue && newValue.loading !== undefined) {
+      set(auctionIsLoadingState, newValue.loading);
+    }
+  },
+});
+
+export const userAuctionsSelector = selector({
+  key: "userAuctionsSelector",
+  get: ({ get }) => {
+    const data = get(userAuctionsState);
+    const loading = get(auctionIsLoadingState);
+
+    return {
+      data,
+      loading,
+    };
+  },
+  set: ({ set }, newValue) => {
+    if (newValue && newValue.data !== undefined) {
+      set(userAuctionsState, newValue.data);
     }
 
     if (newValue && newValue.loading !== undefined) {

@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import LelanginTextButton from "@components/atom/LelanginTextButton";
 import LelanginSearchButton from "@components/atom/LelanginSearchButton";
 
-const AppHeader = ({ headerData, onSubmit }) => {
+const AppHeader = ({ headerData, onSubmit, type = "normal" }) => {
   const nav = useNavigation();
 
   const onBack = () => {
